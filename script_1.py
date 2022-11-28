@@ -51,8 +51,9 @@ class Ship:
             ship_pos.append(Pos(cur_x, cur_y))
         return ship_pos
 
-    def killed(self, shot):
-        return shot in self.position
+    # метод не используется
+    # def killed(self, shot):
+    #     return shot in self.position
 
 
 class Board:
@@ -156,9 +157,12 @@ class Player:
 
 class Com(Player):
     def ask(self):
-        hit = Pos(randint(0, 5), randint(0, 5))
-        print(f"Ход компьютера: {hit.x + 1} {hit.y + 1}")
-        return hit
+        while True:
+            hit = Pos(randint(0, 5), randint(0, 5))
+            for ship in self.enemy_board.navy:
+                if hit in ship.position and hit not in self.enemy_board.busy:
+                    print(f"Ход компьютера: {hit.x + 1} {hit.y + 1}")
+                    return hit
 
 
 class User(Player):
@@ -181,7 +185,7 @@ class Game:
         self.harbor = [3, 2, 2, 1, 1, 1, 1]
         pl = self.random_board()
         co = self.random_board()
-        co.hid = False
+        co.hid = True                          # скрывает корабли компьютера в консоли
         self.user = User(pl, co)
         self.com = Com(co, pl)
 
