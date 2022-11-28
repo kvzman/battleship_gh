@@ -51,10 +51,6 @@ class Ship:
             ship_pos.append(Pos(cur_x, cur_y))
         return ship_pos
 
-    # метод не используется
-    # def killed(self, shot):
-    #     return shot in self.position
-
 
 class Board:
     def __init__(self, hid=False, size=6):
@@ -71,7 +67,7 @@ class Board:
             show_board += f"\n{i+1} | " + " | ".join(row) + " | "
 
         if self.hid:
-            show_board = show_board.replace("#", "0")
+            show_board = show_board.replace("■", "0")
 
         return show_board
 
@@ -99,7 +95,7 @@ class Board:
                 raise WrongShipBoardException()
 
         for cell in ship.position:
-            self.cells[cell.x][cell.y] = "#"
+            self.cells[cell.x][cell.y] = "■"
             self.busy.append(cell)
 
         self.navy.append(ship)
